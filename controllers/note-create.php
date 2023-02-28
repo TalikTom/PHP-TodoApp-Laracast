@@ -12,15 +12,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     //add errors array
     $errors = [];
 
-    $validator = new Validator()
+
 ;
     //check if textarea is empty, if it is empty push the error message into $errors array with key being 'body'
-    if($validator->string($_POST['body'])) {
-        $errors['body'] = 'A body of text is required';
-    }
-
-    if(strlen($_POST['body']) > 500) {
-        $errors['body'] = 'Your note can\'t have more then 500 characters';
+    if(! Validator::string($_POST['body'], 1, 500)) {
+        $errors['body'] = 'A body of no more then 500 characters is required';
     }
 
     if(empty($errors))
